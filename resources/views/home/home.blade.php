@@ -2,7 +2,7 @@
 
 
 @section('content')
-kjfhfvbkjnvkjfkljldvkd
+Home
 
 @endsection
 

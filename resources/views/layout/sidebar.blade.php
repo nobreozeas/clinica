@@ -1,7 +1,7 @@
 <div class="bg-white w-2xs min-h-screen shadow-md">
     <ul class="p-4">
         <li class="">
-            <a href="">
+            <a href="{{ route('home.index') }}">
                 <div class="flex items-center gap-2 p-2 text-[#155CA9] ">
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -80,7 +80,7 @@
         </li>
 
         <li class="">
-            <a href="">
+            <a href="{{ route('exames.index') }}">
                 <div class="flex items-center gap-2 p-2 text-[#155CA9] ">
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
