@@ -174,6 +174,6 @@ class ExamesController extends Controller
             $exames->where('nome', 'like', '%' . $filtro . '%');
         }
 
-        return response()->json($exames->paginate(10));
+        return response()->json($exames->orderBy('id', 'DESC')->paginate(10));
     }
 }
