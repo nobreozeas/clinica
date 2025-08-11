@@ -8,10 +8,6 @@
                 <li class="inline-flex items-center">
 
 
-
-
-
-
                     <a href="{{ route('exames.index') }}"
                         class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 ">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

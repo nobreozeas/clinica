@@ -2,7 +2,7 @@
 
 
 @section('content')
-    <div x-data="setup()">
+    <div x-data="setup()" x-init="inicializar()">
         <nav class="flex" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                 <li class="inline-flex items-center">
@@ -58,49 +58,121 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                 <div class="">
-                    <label for="nome" class="block mb-2 text-sm font-medium text-gray-900">RG</label>
-                    <input type="text" id="nome" x-model="nome"
+                    <label for="rg" class="block mb-2 text-sm font-medium text-gray-900">RG</label>
+                    <input type="text" id="rg" x-model="rg"
                         class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 focus:outline-blue-500 ">
                 </div>
 
                 <div class="">
-                    <label for="cpf" class="block mb-2 text-sm font-medium text-gray-900">Data de Emissão</label>
-                    <input type="text" id="cpf" x-model="cpf"
+                    <label for="data_emissao" class="block mb-2 text-sm font-medium text-gray-900">Data de Emissão</label>
+                    <input type="date" id="data_emissao" x-model="data_emissao"
                         class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 focus:outline-blue-500 ">
                 </div>
 
                 <div class="">
-                    <label for="data_nascimento" class="block mb-2 text-sm font-medium text-gray-900">Órgão Emissor</label>
-                    <input type="date" id="data_nascimento" x-model="data_nascimento"
+                    <label for="orgao_emissor" class="block mb-2 text-sm font-medium text-gray-900">Órgão Emissor</label>
+                    <input type="text" id="orgao_emissor" x-model="orgao_emissor"
                         class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 focus:outline-blue-500 ">
                 </div>
 
                 <div class="">
-                    <label for="data_nascimento" class="block mb-2 text-sm font-medium text-gray-900">UF Emissor</label>
-                    <input type="date" id="data_nascimento" x-model="data_nascimento"
+                    <label for="uf_emissor" class="block mb-2 text-sm font-medium text-gray-900">UF Emissor</label>
+                    <input type="text" id="uf_emissor" x-model="uf_emissor"
+                        class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 focus:outline-blue-500 ">
+                </div>
+
+                <div class="">
+                    <label for="celular_1" class="block mb-2 text-sm font-medium text-gray-900">Celular 1</label>
+                    <input type="text" id="celular_1" x-model="celular_1"
+                        class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 focus:outline-blue-500 ">
+                </div>
+                <div class="">
+                    <label for="celular_2" class="block mb-2 text-sm font-medium text-gray-900">Celular 2</label>
+                    <input type="text" id="celular_2" x-model="celular_2"
                         class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 focus:outline-blue-500 ">
                 </div>
             </div>
 
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
 
+                <div>
+                    <label for="orientacao_sexual" class="block mb-2 text-sm font-medium text-gray-900">Orientação sexual</label>
+                    <select id="orientacao_sexual" x-model="orientacao_sexual"
+                        class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                        <option selected>Selecione...</option>
+                        <template x-for="(orientacao, index) in orientacaoSexualData" :key="index">
+                            <option :value="orientacao.id" x-text="orientacao.nome"></option>
+                        </template>
+                    </select>
+                </div>
 
+                <div>
+                    <label for="identidade_genero" class="block mb-2 text-sm font-medium text-gray-900">Identidade de gênero</label>
+                    <select id="identidade_genero" x-model="identidade_genero"
+                        class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                        <option selected>Selecione...</option>
+                        <template x-for="(identidade, index) in identidadeGeneroData" :key="index">
+                            <option :value="identidade.id" x-text="identidade.nome"></option>
+                        </template>
+                    </select>
+                </div>
 
+                <div>
+                    <label for="raca" class="block mb-2 text-sm font-medium text-gray-900">Raça</label>
+                    <select id="raca" x-model="raca"
+                        class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                        <option selected>Selecione...</option>
+                       <template x-for="(raca, index) in racaData" :key="index">
+                            <option :value="raca.id" x-text="raca.nome"></option>
+                        </template>
+                    </select>
+                </div>
 
+                <div>
+                    <label for="etnia" class="block mb-2 text-sm font-medium text-gray-900">Etnia</label>
+                    <select id="etnia" x-model="etnia"
+                        class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                        <option selected>Selecione...</option>
+                       <template x-for="(etnia, index) in etniaData" :key="index">
+                            <option :value="etnia.id" x-text="etnia.nome"></option>
+                        </template>
+                    </select>
+                </div>
 
-
-
-            <div class="mb-6">
-                <label for="descricao" class="block mb-2 text-sm font-medium text-gray-900">Descrição</label>
-                <textarea id="descricao" rows="4" x-model="descricao"
-                    class="block p-2.5 w-full text-sm text-gray-900  rounded-lg border border-gray-300 focus:outline-blue-500 focus:ring-blue-500 focus:border-blue-500 "
-                    placeholder="Coloque a descrição do exame aqui..."></textarea>
             </div>
+
+            <div class="w-full border-b-2 border-b-blue-500 "></div>
+
+            <div class="mt-3">
+                <span class="text-xl font-medium">Dados de Usuário</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="">
+                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900">E-mail</label>
+                    <input type="email" id="email" x-model="email"
+                        class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 focus:outline-blue-500 ">
+                </div>
+                <div class="">
+                    <label for="usuario" class="block mb-2 text-sm font-medium text-gray-900">Usuário</label>
+                    <input type="text" id="usuario" x-model="usuario"
+                        class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 focus:outline-blue-500 ">
+                </div>
+
+                <div class="">
+                    <label for="senha" class="block mb-2 text-sm font-medium text-gray-900">Senha</label>
+                    <input type="password" id="senha" x-model="senha"
+                        class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 focus:outline-blue-500 ">
+                </div>
+
+            </div>
+
 
             <div class="flex justify-end">
                 <button type="button"
                     class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-lg shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                    @click="salvarExame()">
-                    Criar Exame
+                    @click="salvarPaciente()">
+                    Cadastrar Paciente
                 </button>
             </div>
         </form>
@@ -112,32 +184,73 @@
         function setup() {
             return {
                 nome: '',
-                descricao: '',
-                async salvarExame() {
+                data_nascimento: '',
+                cpf: '',
+                rg: '',
+                data_emissao: '',
+                orgao_emissor: '',
+                uf_emissor: '',
+                celular_1: '',
+                celular_2: '',
+                senha: '',
+                usuario: '',
+                email: '',
+                etnia: '',
+                raca: '',
+                identidade_genero: '',
+                orientacao_sexual: '',
+                orientacaoSexualData: [],
+                identidadeGeneroData: [],
+                racaData: [],
+                etniaData: [],
+                camposObrigatorios: [ 'nome', 'data_nascimento', 'cpf', 'celular_1', 'senha', 'usuario', 'email', 'raca', 'identidade_genero', 'orientacao_sexual' ],
+                async salvarPaciente() {
 
-                    if (this.nome == '' || this.descricao == '') {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Erro',
-                            text: 'Por favor, preencha todos os campos.',
-                            confirmButtonColor: '#155CA9',
-                        })
-                        return;
-
+                    // Verifica se todos os campos obrigatórios estão preenchidos
+                    for (const campo of this.camposObrigatorios) {
+                        if (this[campo] === '') {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erro',
+                                text: `Por favor, preencha o campo ${campo}.`,
+                                confirmButtonColor: '#155CA9',
+                            })
+                            return;
+                        }
                     }
 
                     try {
 
-                        const url = "{{ route('exames.store') }}";
+                        const url = "{{ route('pacientes.store') }}";
 
-                        const response = await axios.post(url, {
+                        const dados = {
                             nome: this.nome,
-                            descricao: this.descricao
-                        })
+                            data_nascimento: this.data_nascimento,
+                            cpf: this.cpf,
+                            rg: this.rg,
+                            data_emissao: this.data_emissao,
+                            orgao_emissor: this.orgao_emissor,
+                            uf_emissor: this.uf_emissor,
+                            celular_1: this.celular_1,
+                            celular_2: this.celular_2,
+                            senha: this.senha,
+                            usuario: this.usuario,
+                            email: this.email,
+                            etnia_id: this.etnia,
+                            raca_id: this.raca,
+                            identidade_genero_id: this.identidade_genero,
+                            orientacao_sexual_id: this.orientacao_sexual
+                        };
+
+                        const response = await axios.post(url,
+                            {
+                                ...dados
+                            }
+                        )
 
                         let timerInterval;
                         Swal.fire({
-                            title: 'Exame criado com sucesso!',
+                            title: 'Paciente criado com sucesso!',
                             html: "Voce será redirecionado em <b></b> milissegundos.",
                             icon: 'success',
                             timer: 3000,
@@ -157,11 +270,8 @@
                             if (result.dismiss === Swal.DismissReason.timer) {
                                 console.log("I was closed by the timer");
                             }
-                            window.location.href = "{{ route('exames.index') }}";
+                            window.location.href = "{{ route('pacientes.index') }}";
                         });
-
-
-
 
                     } catch (error) {
                         const erros = error.response.data.errors;
@@ -180,6 +290,55 @@
 
 
                 },
+                async listaOrientacaoSexual(){
+
+                    const url = "{{ route('orientacaoSexual.listar') }}";
+
+                    const response = await axios.get(url);
+
+                    this.orientacaoSexualData = response.data;
+
+                },
+                async listaIdentidadeGenero(){
+                    const url = "{{ route('identidadeGenero.listar') }}";
+
+                    const response = await axios.get(url);
+
+                    this.identidadeGeneroData = response.data;
+
+                },
+                async listaRaca(){
+                    const url = "{{ route('raca.listar') }}";
+
+                    const response = await axios.get(url);
+
+                    this.racaData = response.data;
+                },
+                async listaEtnia(){
+                    const url = "{{ route('etnia.listar') }}";
+
+                    const response = await axios.get(url);
+
+                    this.etniaData = response.data;
+                },
+                inicializar(){
+                    this.listaOrientacaoSexual();
+                    this.listaIdentidadeGenero();
+                    this.listaRaca();
+                    this.listaEtnia();
+                    this.geraSenhaAleatoria();
+                },
+                async geraSenhaAleatoria(){
+
+                    //gerar senha aleatoria com
+                    const caracteres = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#@._';
+                    let senha = '';
+                    for (let i = 0; i < 8; i++) {
+                        senha += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+                    }
+
+                    this.senha = senha;
+                }
 
             }
         }

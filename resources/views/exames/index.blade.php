@@ -81,7 +81,7 @@
                             <td class="">
                                 <div class="flex gap-2">
 
-                                    <a :href="`{{ url('exames/editar') }}/${exame.id}`">
+                                    <a :href="`{{ route('exames.edit', ':id') }}`.replace(':id', exame.id)">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="size-6 text-green-600">
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -218,7 +218,7 @@
                         return;
                     }
 
-                    const url = `{{ url('exames/excluir') }}/${id}`;
+                    const url = `{{ route('exames.destroy', ':id') }}`.replace(':id', id);
 
                     Swal.fire({
                         title:`Você tem certeza que deseja excluir o exame com ID ${id}?`,

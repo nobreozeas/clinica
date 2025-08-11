@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\etnias\EtniaController;
 use App\Http\Controllers\Exames\ExamesController;
 use App\Http\Controllers\Home\HomeController;
+use App\Http\Controllers\identidades_generos\IdentidadeGeneroController;
+use App\Http\Controllers\orientacoes_sexuais\OrientacaoSexualController;
 use App\Http\Controllers\Pacientes\PacientesController;
+use App\Http\Controllers\racas\RacaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
@@ -28,3 +32,7 @@ Route::group(['prefix' => 'pacientes', 'as' => 'pacientes.'], function () {
     Route::get('/listar', [ExamesController::class, 'listarPacientes'])->name('listarPacientes');
 });
 
+Route::get('/orientacao-sexual/listar', [OrientacaoSexualController::class, 'listarOrientacaoSexual'])->name('orientacaoSexual.listar');
+Route::get('/identidade-genero/listar', [IdentidadeGeneroController::class, 'listarIdentidadeGenero'])->name('identidadeGenero.listar');
+Route::get('/raca/listar', [RacaController::class, 'listarRaca'])->name('raca.listar');
+Route::get('/etnia/listar', [EtniaController::class, 'listarEtnia'])->name('etnia.listar');
