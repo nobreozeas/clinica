@@ -7,14 +7,14 @@
             <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                 <li class="inline-flex items-center">
 
-                    <a href="{{ route('pacientes.index') }}"
+                    <a href="{{ route('medicos.index') }}"
                         class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 ">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-4 h-4 me-2.5">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M8.242 5.992h12m-12 6.003H20.24m-12 5.999h12M4.117 7.495v-3.75H2.99m1.125 3.75H2.99m1.125 0H5.24m-1.92 2.577a1.125 1.125 0 1 1 1.591 1.59l-1.83 1.83h2.16M2.99 15.745h1.125a1.125 1.125 0 0 1 0 2.25H3.74m0-.002h.375a1.125 1.125 0 0 1 0 2.25H2.99" />
                         </svg>
-                        Pacientes
+                        Médicos
                     </a>
                 </li>
 
@@ -25,14 +25,14 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="m1 9 4-4-4-4" />
                         </svg>
-                        <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2">Novo Paciente</span>
+                        <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2">Novo Médico</span>
                     </div>
                 </li>
             </ol>
         </nav>
 
 
-        <form action="{{ route('pacientes.store') }}" method="POST" class="my-4">
+        <form action="" method="POST" class="my-4">
             @csrf
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
@@ -45,6 +45,23 @@
                 <div class="">
                     <label for="cpf" class="block mb-2 text-sm font-medium text-gray-900">CPF</label>
                     <input type="text" id="cpf" x-model="cpf"
+                        class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 focus:outline-blue-500 ">
+                </div>
+
+                <div class="">
+                    <label for="crm" class="block mb-2 text-sm font-medium text-gray-900">CRM</label>
+                    <input type="text" id="crm" x-model="crm"
+                        class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 focus:outline-blue-500 ">
+                </div>
+
+                <div class="">
+                    <label for="matricula" class="block mb-2 text-sm font-medium text-gray-900">Matrícula</label>
+                    <input type="text" id="matricula" x-model="matricula"
+                        class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 focus:outline-blue-500 ">
+                </div>
+                <div class="">
+                    <label for="salario" class="block mb-2 text-sm font-medium text-gray-900">Salário</label>
+                    <input type="text" id="salario" x-model="salario"
                         class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 focus:outline-blue-500 ">
                 </div>
 
@@ -96,7 +113,8 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
 
                 <div>
-                    <label for="orientacao_sexual" class="block mb-2 text-sm font-medium text-gray-900">Orientação sexual</label>
+                    <label for="orientacao_sexual" class="block mb-2 text-sm font-medium text-gray-900">Orientação
+                        sexual</label>
                     <select id="orientacao_sexual" x-model="orientacao_sexual"
                         class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                         <option selected>Selecione...</option>
@@ -107,7 +125,8 @@
                 </div>
 
                 <div>
-                    <label for="identidade_genero" class="block mb-2 text-sm font-medium text-gray-900">Identidade de gênero</label>
+                    <label for="identidade_genero" class="block mb-2 text-sm font-medium text-gray-900">Identidade de
+                        gênero</label>
                     <select id="identidade_genero" x-model="identidade_genero"
                         class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                         <option selected>Selecione...</option>
@@ -122,7 +141,7 @@
                     <select id="raca" x-model="raca"
                         class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                         <option selected>Selecione...</option>
-                       <template x-for="(raca, index) in racaData" :key="index">
+                        <template x-for="(raca, index) in racaData" :key="index">
                             <option :value="raca.id" x-text="raca.nome"></option>
                         </template>
                     </select>
@@ -133,7 +152,7 @@
                     <select id="etnia" x-model="etnia"
                         class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                         <option selected>Selecione...</option>
-                       <template x-for="(etnia, index) in etniaData" :key="index">
+                        <template x-for="(etnia, index) in etniaData" :key="index">
                             <option :value="etnia.id" x-text="etnia.nome"></option>
                         </template>
                     </select>
@@ -167,12 +186,43 @@
 
             </div>
 
+            <div class="w-full border-b-2 border-b-blue-500 "></div>
+
+            <div class="mt-3">
+                <span class="text-xl font-medium">Especialidades</span>
+            </div>
+               <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                 <div>
+                    <label for="especialidade" class="block mb-2 text-sm font-medium text-gray-900">Especialidade</label>
+                    <select id="especialidade" x-model="item_especialidade"
+                        class=" border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                        <option selected value="">Selecione...</option>
+                        <template x-for="(especialidade, index) in especialidadesData" :key="index">
+                            <option :value="especialidade.id" x-text="especialidade.nome"></option>
+                        </template>
+                    </select>
+
+                    <button type="button" @click="adicionarItem(item_especialidade)">Adicionar</button>
+                </div>
+
+            </div>
+
+            <div class="area-especialidade border-amber-300 w-full">
+                <template x-for="(especialidade, index) in arrayItemEspecialidade" :key="index">
+                    <div class="flex items-center justify-between p-2 border-b border-gray-200">
+                        <span x-text="especialidade.nome"></span>
+
+                    </div>
+                </template>
+            </div>
+
+
 
             <div class="flex justify-end">
                 <button type="button"
                     class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-lg shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                    @click="salvarPaciente()">
-                    Cadastrar Paciente
+                    @click="salvarMedico()">
+                    Cadastrar Médico
                 </button>
             </div>
         </form>
@@ -184,6 +234,12 @@
         function setup() {
             return {
                 nome: '',
+                item_especialidade: '',
+                arrayItemEspecialidade: [],
+                especialidadesData: [],
+                crm: '',
+                matricula: '',
+                salario: '',
                 data_nascimento: '',
                 cpf: '',
                 rg: '',
@@ -203,25 +259,48 @@
                 identidadeGeneroData: [],
                 racaData: [],
                 etniaData: [],
-                camposObrigatorios: [ 'nome', 'data_nascimento', 'cpf', 'celular_1', 'senha', 'usuario', 'email', 'raca', 'identidade_genero', 'orientacao_sexual' ],
-                async salvarPaciente() {
+                camposObrigatorios: ['nome', 'data_nascimento', 'cpf', 'celular_1', 'senha', 'usuario', 'email', 'raca',
+                    'identidade_genero', 'orientacao_sexual', 'crm', 'matricula', 'salario'
+                ],
+                async adicionarItem(item){
 
-                    // Verifica se todos os campos obrigatórios estão preenchidos
-                    for (const campo of this.camposObrigatorios) {
-                        if (this[campo] === '') {
+                    for(let e of this.arrayItemEspecialidade){
+                        if(e.id == item){
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Erro',
-                                text: `Por favor, preencha o campo ${campo}.`,
+                                text: 'Especialidade já adicionada.',
                                 confirmButtonColor: '#155CA9',
                             })
                             return;
                         }
                     }
 
+                    for(let e of this.especialidadesData){
+                        if(e.id == item){
+                            this.arrayItemEspecialidade.push(e);
+                        }
+                    }
+
+                },
+                async salvarMedico() {
+
+                    // // Verifica se todos os campos obrigatórios estão preenchidos
+                    // for (const campo of this.camposObrigatorios) {
+                    //     if (this[campo] === '') {
+                    //         Swal.fire({
+                    //             icon: 'error',
+                    //             title: 'Erro',
+                    //             text: `Por favor, preencha o campo ${campo}.`,
+                    //             confirmButtonColor: '#155CA9',
+                    //         })
+                    //         return;
+                    //     }
+                    // }
+
                     try {
 
-                        const url = "{{ route('pacientes.store') }}";
+                        const url = "{{ route('medicos.store') }}";
 
                         const dados = {
                             nome: this.nome,
@@ -239,14 +318,16 @@
                             etnia_id: this.etnia,
                             raca_id: this.raca,
                             identidade_genero_id: this.identidade_genero,
-                            orientacao_sexual_id: this.orientacao_sexual
+                            orientacao_sexual_id: this.orientacao_sexual,
+                            crm: this.crm,
+                            matricula: this.matricula,
+                            salario: this.salario,
+                            especialidades: this.arrayItemEspecialidade
                         };
 
-                        const response = await axios.post(url,
-                            {
-                                ...dados
-                            }
-                        )
+                        const response = await axios.post(url, {
+                            ...dados
+                        })
 
                         let timerInterval;
                         Swal.fire({
@@ -290,7 +371,7 @@
 
 
                 },
-                async listaOrientacaoSexual(){
+                async listaOrientacaoSexual() {
 
                     const url = "{{ route('orientacaoSexual.listar') }}";
 
@@ -299,7 +380,7 @@
                     this.orientacaoSexualData = response.data;
 
                 },
-                async listaIdentidadeGenero(){
+                async listaIdentidadeGenero() {
                     const url = "{{ route('identidadeGenero.listar') }}";
 
                     const response = await axios.get(url);
@@ -307,28 +388,36 @@
                     this.identidadeGeneroData = response.data;
 
                 },
-                async listaRaca(){
+                async listaRaca() {
                     const url = "{{ route('raca.listar') }}";
 
                     const response = await axios.get(url);
 
                     this.racaData = response.data;
                 },
-                async listaEtnia(){
+                async listaEtnia() {
                     const url = "{{ route('etnia.listar') }}";
 
                     const response = await axios.get(url);
 
                     this.etniaData = response.data;
                 },
-                inicializar(){
+                inicializar() {
                     this.listaOrientacaoSexual();
                     this.listaIdentidadeGenero();
                     this.listaRaca();
                     this.listaEtnia();
                     this.geraSenhaAleatoria();
+                    this.listaEspecialidades();
                 },
-                async geraSenhaAleatoria(){
+                async listaEspecialidades() {
+                    const url = "{{ route('especialidade.listar') }}";
+
+                    const response = await axios.get(url);
+
+                    this.especialidadesData = response.data.data;
+                },
+                async geraSenhaAleatoria() {
 
                     //gerar senha aleatoria com
                     const caracteres = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#@._';
