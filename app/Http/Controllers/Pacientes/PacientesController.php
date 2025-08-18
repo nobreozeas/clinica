@@ -122,4 +122,11 @@ class PacientesController extends Controller
             'pacientes' => $pacientes,
         ]);
     }
+
+    public function listarPacientesSelect(){
+
+        return response()->json([
+            'pacientes' => Paciente::select('id', 'nome')->get(),
+        ]);
+    }
 }

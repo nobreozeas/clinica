@@ -20,7 +20,7 @@
         </li>
 
         <li class="">
-            <a href="">
+            <a href="{{ route('consultas.index') }}">
                 <div class="flex items-center gap-2 p-2 text-[#155CA9] ">
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

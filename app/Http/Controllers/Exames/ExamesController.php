@@ -176,4 +176,10 @@ class ExamesController extends Controller
 
         return response()->json($exames->orderBy('id', 'DESC')->paginate(10));
     }
+
+    public function listarExamesSelect(){
+        return response()->json([
+            'exames' => Exame::select('id', 'nome')->get(),
+        ]);
+    }
 }

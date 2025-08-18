@@ -29,7 +29,7 @@ class MedicoController extends Controller
     public function store(Request $request)
     {
 
-    
+
 
         DB::beginTransaction();
 
@@ -124,12 +124,18 @@ class MedicoController extends Controller
         //
     }
 
-    public function listarPacientes(Request $request)
+    public function listarMedicos(Request $request)
     {
-        $pacientes = Paciente::paginate(10);
+        $medicos = Medico::paginate(10);
 
         return response()->json([
-            'pacientes' => $pacientes,
+            'medicos' => $medicos,
+        ]);
+    }
+
+    public function listarMedicosSelect(){
+        return response()->json([
+            'medicos' => Medico::select('id', 'nome')->get(),
         ]);
     }
 
