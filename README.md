@@ -9,8 +9,8 @@ Pressupõe que você já utiliza **WSL**, **Docker**, **NVM/Node.js** e **Compos
 
 ### 1) Clonar o repositório
 ```bash
-git clone <https://github.com/nobreozeas/clinica>
-cd <clinica>
+git clone https://github.com/nobreozeas/clinica
+cd clinica
 ```
 
 ### 2) Configurar variáveis de ambiente
