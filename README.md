@@ -1,61 +1,169 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# README – Setup do Projeto Laravel com Sail (MySQL)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este guia explica como preparar e executar o projeto localmente usando **Laravel Sail** com **MySQL**.  
+Pressupõe que você já utiliza **WSL**, **Docker**, **NVM/Node.js** e **Composer** instalados e funcionando.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🚀 Passo a passo
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 1) Clonar o repositório
+```bash
+git clone <https://github.com/nobreozeas/clinica>
+cd <clinica>
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 2) Configurar variáveis de ambiente
+Copie o arquivo de exemplo e renomeie:
+```bash
+cp .env.example .env
+```
 
-## Learning Laravel
+### 3) Remover o `docker-compose.yml` existente
+> O projeto utiliza o `docker-compose.yml` gerado pelo Sail.
+```bash
+rm -f docker-compose.yml
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 4) Instalar dependências PHP
+```bash
+composer install
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 5) Instalar e configurar o Laravel Sail
+```bash
+composer require laravel/sail --dev
+php artisan sail:install
+```
+Quando solicitado, **selecione o banco `mysql`** (use a barra de espaço para marcar e Enter para confirmar).
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 6) Subir os containers
+```bash
+./vendor/bin/sail up -d
+```
+> Dica: Você pode criar um alias opcional (`alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'`) para usar apenas `sail`.
 
-## Laravel Sponsors
+### 7) Gerar a chave da aplicação
+```bash
+sail artisan key:generate
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 8) Instalar dependências JavaScript
+```bash
+sail npm install
+```
 
-### Premium Partners
+### 9) Executar migrações do banco
+```bash
+sail artisan migrate
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 10) Preparar o seeder principal
+Abra `database/seeders/DatabaseSeeder.php` e **descomente** as linhas dentro de:
+```php
+public function run(): void
+{
+    $this->call([
+        // Ex.: UsersTableSeeder::class,
+        //      RolesTableSeeder::class,
+        //      ...
+    ]);
+}
+```
+> Remova os `//` das classes que você deseja popular.
 
-## Contributing
+### 11) Popular o banco de dados
+```bash
+sail artisan db:seed
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 12) Rodar o front-end em modo desenvolvimento
+```bash
+sail npm run dev
+```
 
-## Code of Conduct
+### 13) Acessar a aplicação
+Abra o navegador em:
+```
+http://localhost
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## ⚙️ Ajustes no `.env`
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Garanta que as variáveis de banco estejam compatíveis com o Sail (padrão):
+```
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=sail
+DB_PASSWORD=password
+```
 
-## License
+Se você alterou o nome do serviço ou credenciais na instalação, ajuste aqui.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## 🧪 Comandos úteis
+
+- Parar containers:
+  ```bash
+  sail down
+  ```
+- Ver logs:
+  ```bash
+  sail logs -f
+  ```
+- Rodar testes:
+  ```bash
+  sail artisan test
+  ```
+- Recriar containers (sem cache):
+  ```bash
+  sail down -v && sail build --no-cache && sail up -d
+  ```
+
+---
+
+## 🛠️ Solução de problemas
+
+- **`sail: command not found`**  
+  Use o caminho completo: `./vendor/bin/sail <comando>` ou crie o alias sugerido.
+
+- **Portas em uso (3306, 80, 5173, etc.)**  
+  Pare serviços locais em conflito (ex.: MySQL nativo/Apache) ou mude portas no `docker-compose.yml` gerado pelo Sail.
+
+- **Erro de conexão ao banco**  
+  Verifique as variáveis `DB_*` no `.env`.  
+  Rode `sail ps` para confirmar se o serviço `mysql` está `Up`.  
+  Se necessário, reinicialize:
+  ```bash
+  sail down -v
+  sail up -d
+  sail artisan migrate:fresh --seed
+  ```
+
+- **Assets/front não carregam**  
+  Confirme se o `sail npm run dev` está em execução e que a URL do Vite está correta no `.env` (se aplicável):
+  ```
+  VITE_HOST=localhost
+  VITE_PORT=5173
+  ```
+
+---
+
+## 📦 Rebuild após mudanças no `docker-compose.yml`
+Se você ajustar o `docker-compose.yml` do Sail:
+```bash
+sail down
+sail build --no-cache
+sail up -d
+```
+
+---
+
+## ✅ Pronto!
+Com esses passos, sua aplicação Laravel deve estar rodando em `http://localhost`.  
+Qualquer dúvida, verifique os logs com `sail logs -f` e revise as configurações do `.env`.
